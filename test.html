@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 40%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+</style>
+</head>
+<body>
+  Please select Date to purchase the product:
+  <input type="date" id="myDate">
+  <br/>
+  <br/>
+  <table>
+    <tr>
+      <th>Product Code</th>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Purchase</th>
+    </tr>
+    <tr>
+      <td>ult_small</td>
+      <td>Unlimited 1GB</td>
+      <td>$24.90</td>
+      <td>   
+        <select id="product_1" price="24.90" onchange="clickMe(this.id,this.getAttribute('price'))">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>ult_medium</td>
+      <td>Unlimited 2GB</td>
+      <td>$29.90</td>
+      <td>
+        <select id ="product_2" price="29.90" onchange="clickMe(this.id,this.getAttribute('price'))">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+        <td>ult_large</td>
+        <td>Unlimited 5GB</td>
+        <td>$44.90</td>
+      <td>   
+        <select id ="product_3" price="44.90" onchange="clickMe(this.id,this.getAttribute('price'))">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>1gb</td>
+      <td>1 GB Data-pack</td>
+      <td>$9.90</td>
+      <td>  
+        <select id="product_4" price="9.90" onchange="clickMe(this.id, this.getAttribute('price'))">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="15">15</option>
+          <option value="16">16</option>
+        </select>
+      </td>
+    </tr>
+  
+  </table>
+<br/>
+
+<hr/>
+<h2>Your Cart</h2>
+<table>
+  <thead>
+    <th>Items Added</th>
+    <th>Price</th>
+    <th>No of Item</th>
+    <th>Total Amount</th>
+  </thead>
+  <tbody id="dataBody">
+
+  </tbody>
+</table>
+<br>
+Add Voucher ?
+<input type="text" placeholder="Enter voucher code" id="txtVoucher"/><br>
+
+<button id="checkout">checkout</button>
+<h4 >Overall Total Amount: <p id="overallTotal"></p> </h4>
+
+
+</body>
+<script src="./jquery.min.js"></script>
+<script>
+    function isValidIn30Days() {
+    let isValid = false;
+    let selectedDate = document.getElementById("myDate").value;
+    var future = new Date();
+    future.setDate(future.getDate() + 30);
+    if(new Date(selectedDate).toLocaleString() <= new Date(future).toLocaleString()) {
+     isValid = true
+    } else {
+     isValid = false 
+    }
+     return isValid;
+  }
+
+  let caseOneTotal = 0;
+  let caseTwoTotal = 0;
+  let caseThreeTotal = 0;
+  let caseFourTotal = 0;
+  document.getElementById("myDate").valueAsDate =  new Date();
+
+  function clickMe(product, price){
+
+    if(product === 'product_1') {
+      console.log("test product 1")
+      caseOneTotal = getProductOne(price, document.getElementById('product_1').value);
+    }
+
+    if(product === 'product_3') {
+        caseTwoTotal = getProductTwo(price, document.getElementById('product_3').value);
+    }
+
+    if(product === 'product_2') {
+      caseThreeTotal = getProductThree(price, document.getElementById('product_2').value);
+    }
+
+    if(product === 'product_4') {
+      caseFourTotal = getProductFour(price, document.getElementById('product_4').value);
+    }
+  }
+
+  function getProductOne(price, totalItem) {
+    console.log('asdasd')
+    console.log('total_item', isValidIn30Days())
+    /*
+    - 3 for 2 
+    - free 1 if purchase of three
+    - effective for first month only
+    */
+    let totalAmount = 0;
+    console.log('total_item', isValidIn30Days())
+    if(isValidIn30Days()) {
+
+      console.log("3daty")
+      console.log('total_item', totalItem)
+      let discount = parseInt(totalItem / 3);
+      totalAmount = (totalItem - discount) * price;
+      console.log("heres the discounted : ",totalAmount)
+    } else {
+      totalAmount = price * totalItem;
+      console.log("zzz")
+    }
+    $('#producRow1').remove();
+    $('#dataBody').append('<tr id=producRow1><td>Unlimited 1GB</td><td>' + price + '</td><td>' + totalItem + '</td><td>' +  totalAmount+ '</td></tr>');
+    return totalAmount;
+  }
+  function getProductTwo(price, totalItem) {
+    let totalAmount = 0;
+    if(isValidIn30Days) {
+      if(totalItem > 3) {
+        price = 39.90
+        // price = 39.90; 
+        totalAmount = totalItem * price;
+      } else {
+        totalAmount = price * totalItem;
+      }
+    } else {
+  
+    totalAmount = price * totalItem;
+    }
+
+    $('#producRow3').remove();
+    $('#dataBody').append('<tr id="producRow3"><td>Unlimited 5GB</td><td>' + price + '</td><td>' + totalItem + '</td><td>' +  totalAmount+ '</td></tr>');
+
+    return totalAmount;
+  }
+  function getProductThree(price, totalItem) {
+    let totalAmount = price * totalItem;
+    $('#producRow2').remove();
+    $('#dataBody').append('<tr id="producRow2"><td>Unlimited 2GB  with free ' + totalItem + ' 1GB Data-pack </td><td>' + price + '</td><td>' + totalItem + '</td><td>' +  totalAmount+ '</td></tr>');
+    
+    return totalAmount;
+  }
+
+  function getProductFour(price, totalItem) {
+    totalAmount = price * totalItem;
+    $('#producRow4').remove();
+    $('#dataBody').append('<tr id="producRow4"><td>1 GB Data-pack </td><td>' + price + '</td><td>' + totalItem + '</td><td>' +  totalAmount+ '</td></tr>');
+    return totalAmount;
+  }
+
+  $('#checkout').click(function() {
+    let total = 0;
+    if($('#txtVoucher').val() === 'I<3AMAYSIM') {
+      total = caseOneTotal + caseTwoTotal + caseThreeTotal + caseFourTotal;
+      total = total - (total * 10) / 100;
+    } else {
+      total = caseOneTotal + caseTwoTotal + caseThreeTotal + caseFourTotal;
+    }
+      document.getElementById('overallTotal').innerHTML = total;
+  });
+
+</script>
+</html>
